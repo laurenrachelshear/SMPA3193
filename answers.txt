@@ -1,0 +1,5 @@
+
+usmcservmart.gsa.gov had the highest avg_session_duration: 998.1948246765423
+none of the domains had more than 100 pageviews_per_session
+19 NASA domains saw at least 100,000 visits
+

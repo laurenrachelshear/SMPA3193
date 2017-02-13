@@ -1,0 +1,5 @@
+SELECT state, SUM(amount) FROM mandel GROUP BY state;
+SELECT purpose, SUM(amount) FROM mandel GROUP BY purpose ORDER BY SUM(amount) DESC;
+SELECT purpose, SUM(amount) FROM mandel GROUP BY purpose, WHERE purpose LIKE ‘%DIRECT_’;
+SELECT month, year, SUM(amount) FROM mandel GROUP BY month, year ORDER BY SUM(amount) DESC;
+SELECT payee, purpose, SUM(amount) FROM mandel GROUP BY payee, purpose, WHERE purpose = ‘PAYROLL’;

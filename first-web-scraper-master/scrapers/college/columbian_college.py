@@ -1,22 +1,33 @@
 import csv
 import requests
 from BeautifulSoup import BeautifulSoup
+# encoding=utf8  
+import sys  
+reload(sys)  
+sys.setdefaultencoding('utf8')
 
-url = 'https://columbian.gwu.edu/2010-2011'
-response = requests.get(url)
-html = response.content
-
-soup = BeautifulSoup(html)
-table = soup.find('table')
-
+years = ['2014-2015', '2015-2016']
 list_of_rows = []
-for row in table.findAll('tr'):
-    list_of_cells = []
-    for cell in row.findAll('td'):
-    	list_of_cells.append(cell.text.encode('utf-8').strip())
-    list_of_rows.append(list_of_cells)
 
-outfile = open("2010-11.csv", "wb")
+for year in years:
+    print year
+    response = requests.get("https://columbian.gwu.edu/" + year)
+    html = response.content
+
+    soup = BeautifulSoup(html)
+    table = soup.find('table')
+    
+    for row in table.findAll('tr')[1:-1]:
+        list_of_cells = []
+        # i need to put the year into the list of cells
+        list_of_cells.append(year)
+        for cell in row.findAll('td'):
+            # this causes an error - google unicodedecode error
+            list_of_cells.append(cell.text.encode('utf-8')
+        list_of_rows.append(list_of_cells)
+
+
+outfile = open("grants.csv", "wb")
 writer = csv.writer(outfile)
-writer.writerow(["department", "faculty", "sponsor", "title"])
+writer.writerow(["Year","Department", "Faculty", "Sponsor", "Title"])
 writer.writerows(list_of_rows)
